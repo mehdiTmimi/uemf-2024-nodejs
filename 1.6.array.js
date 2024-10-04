@@ -75,3 +75,7 @@ console.log(res)
 res = tab.map((value)=> value+10)
 console.log(res)
 
+ // 6- sort
+ console.log(tab)
+ let tab2 = tab.sort((a,b)=>b-a)
+ console.log(tab2)
