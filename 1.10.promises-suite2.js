@@ -15,12 +15,15 @@ const main = () => {
 
 // sychrone
 const main2 = async () => {
-    console.log("avant lecture")
-
     // promise => cette maniere est sync
-    let data = await fs.promises.readFile("./data.json")
-    let todos = JSON.parse(data)
-    console.log(todos.length)
+    try {
+        let data = await fs.promises.readFile("./dataa.json")
+        let todos = JSON.parse(data)
+        console.log(todos.length)
+    }catch(e){
+        console.log(e)
+    }
     console.log("apres lecture")
+
 }
 main2()
