@@ -19,5 +19,5 @@ console.log("success3")
     console.error(e)
 }
 // difference:
-// en mode synchrone, on peut passer a la prochaine instruction sans
+// en mode synchrone, on peut pas passer a la prochaine instruction sans
 // terminer l instruction actuelle
