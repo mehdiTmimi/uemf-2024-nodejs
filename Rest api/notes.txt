@@ -1,0 +1,42 @@
+Rest Api => Serveur Web
+une maniere conventionnelle / unifie pour communiquer avec
+un web service
+exemple:
+on veut recuperer la liste des utilisateurs
+ cas 1 : envoyer une requete qui dans le path = /getAllUsers
+ cas 2 : envoyer une requete qui dans le path = /users
+exemple: on veut supprimer l utilisateur ayant le cin : cd123
+ cas 1 : METHOD :GET ,  requete ou le path est /deleteUserCD123
+ cas 2 : n importe quelle methode, path /user , cin est dans le body de la requete
+
+----- different maniere d envoi de donnees ------
+
+1- dans le body de la requete
+2- dans les headers
+3- dans le url : query param url?clef=valeur&clef=valeur
+https://www.google.com/search?sca_esv=c8b5503a216d1d85&rlz=1C5CHFA_enMA911MA911&sxsrf=ADLYWIJv0KYusE27UNDR5KlhY379j6udOg:1729239269825&q=nature+image&udm=2&fbs=AEQNm0CbCVgAZ5mWEJDg6aoPVcBgTlosgQSuzBMlnAdio07UCId2t1azIRgowYJD0nDbqEIN7XYIyS3uBYzHmWPp2pnW7G_IJrZtNDMziXf_SeaMZr4hckuBcff6G4EcYYw49b2zDwPEt0vOv_KUfFESSw2SXNb_e2ll3pTQuCN8SjDsXp_Tnctul5Fwb1y72oZw1phrICiK&sa=X&ved=2ahUKEwjGkaOjvpeJAxWoZ0EAHUJPKDEQtKgLegQIFRAB#vhid=NDQdEGL-6UGjmM&vssid=mosaic
+4- dans le url : /user/cd123
+5- dans les cookies
+
+
+----- rest api convention -----
+=> systeme de ressouce
+******lecture
+1- lire (recuperer)
+=> method GET + path : /nom de la ressource avec s
+exemple: GET /notes
+2- lire une ressource specifique
+=> method GET + path /nom de la ressource avec s/id
+exemple: GET /etudiants/cd123123
+
+3- lire (recuperer) avec options => query param
+exemple: GET /users?limit=10&order=asc
+
+***** insertion (ajout des donnes)
+method POST + path : /nom de la ressource avec s + les donnees seront dans le body
+
+***** suppression
+method Delete +  path : /nom de la ressource avec s/id
+
+***** update
+method Put | patch +  /nom de la ressource avec s/id + les donnees seront dans le body
