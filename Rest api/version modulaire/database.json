@@ -1,11 +1,6 @@
 {
    "users": [
       {
-         "id": 1,
-         "firstName": "Mehdi",
-         "lastName": "Tmimi"
-      },
-      {
          "id": 4,
          "firstName": "hamza",
          "lastName": "berrada"
