@@ -1,24 +1,14 @@
 {
-    "users":[
-        {
-            "id":1,
-            "firstName":"Mehdi",
-            "lastName":"Tmimi"
-        },
-        {
-            "id":2,
-            "firstName":"Sarah",
-            "lastName":"Filali"
-        },
-        {
-            "id":3,
-            "firstName":"ali",
-            "lastName":"alaoui"
-        },
-        {
-            "id":4,
-            "firstName":"hamza",
-            "lastName":"berrada"
-        }
-    ]
+   "users": [
+      {
+         "id": 1,
+         "firstName": "Mehdi",
+         "lastName": "Tmimi"
+      },
+      {
+         "id": 4,
+         "firstName": "hamza",
+         "lastName": "berrada"
+      }
+   ]
 }
