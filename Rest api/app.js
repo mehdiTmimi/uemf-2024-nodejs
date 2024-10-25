@@ -14,13 +14,13 @@ const configServer = (request,response)=>{
             if(resultat)
             {
                 response.setHeader("Content-Type","application/json")
-                response.status = 200
+                response.statusCode = 200
                 response.write(JSON.stringify(resultat))
                 response.end()
             }
             else
             {
-                response.status = 404
+                response.statusCode = 404
                 response.write("user avec id = " + id +" is not found !!!!!")
                 response.end()
             }
@@ -64,7 +64,7 @@ const configServer = (request,response)=>{
 
   
     else{
-        response.status="404"
+        response.statusCode="404"
         response.write("not found !!!!!")
         response.end()
     }
