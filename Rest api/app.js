@@ -2,7 +2,31 @@ const fs = require("fs")
 const http = require("http")
 const PORT = 3000
 const configServer = (request,response)=>{
-    if(request.method=="GET" && request.url.startsWith("/users"))
+    // GET /users/id => http://localhost:3000/users/5
+    if(request.method=="GET" && request.url.startsWith("/users/"))
+    {
+        let id = request.url.split("/")[2]
+        fs.promises.readFile("./database.json")
+        .then(data=>data.toString())
+        .then(data=>JSON.parse(data))
+        .then(data=>{ // c'est l'objet users du database.json
+            let resultat = data.users.find(value=>value.id==id)
+            if(resultat)
+            {
+                response.setHeader("Content-Type","application/json")
+                response.status = 200
+                response.write(JSON.stringify(resultat))
+                response.end()
+            }
+            else
+            {
+                response.status = 404
+                response.write("user avec id = " + id +" is not found !!!!!")
+                response.end()
+            }
+        })
+    }
+    else if(request.method=="GET" && request.url.startsWith("/users"))
     {
         let limit = -1;
         if(request.url.split("?").length!=1)
@@ -37,6 +61,8 @@ const configServer = (request,response)=>{
         })
         .finally(()=>response.end())// envoie de la response
     }
+
+  
     else{
         response.status="404"
         response.write("not found !!!!!")
