@@ -1,5 +1,7 @@
 const http = require("http")
 const fs = require("fs")
+//configuration du serveur
+// createServer(callback(request,response))
 const server = http.createServer((request, response) => {
     const url = request.url // path
     console.log(url, request.method)

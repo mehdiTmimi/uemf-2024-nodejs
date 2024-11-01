@@ -1,3 +1,5 @@
+// NBR => NBR + 1 => res * 2 => res -1
+
 let f1 = (nbr, successFn, echecFn) => {
     setTimeout(() => successFn(nbr + 1), 2000)
 }
@@ -30,11 +32,9 @@ let ff3 = (nbr) => new Promise((resolve, reject) => {
 let main2 = () => {
     let x = 5
     ff1(x)
-    .then(data=>{return ff2(data);},
-    e=>console.log("ali",e))
+    .then(data=>ff2(data))
     .then(data=>ff3(data))
     .then(data=>console.log(data))
-    .catch(e=>console.log("mehdi",e))
 }
 main2()
 

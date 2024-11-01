@@ -1,4 +1,4 @@
-const fs = require("fs") //
+const fs = require("fs") //filesytem module
 
 // en mode asynchrone
 fs.promises.writeFile("./data.txt","salut uemf").then(()=>{
@@ -10,6 +10,7 @@ fs.writeFile("./data2.txt","salut uemf",(err)=>{
         return console.error(err)
     console.log("success2")
 })
+
 // en mode synchrone
 try{
 fs.writeFileSync("./data3.txt","salut uemf")
