@@ -21,6 +21,8 @@ console.log(res2)
 
 
 // parametres
+// les params sont facultatifs
+// les params acceptent des valeurs par defaut param=default value
 function somme(a=1,b=2){
     return a+b
 }

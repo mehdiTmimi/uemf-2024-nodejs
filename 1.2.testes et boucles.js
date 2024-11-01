@@ -16,4 +16,4 @@ if(x===y){
 }*/
 
 // boucles
-// for , whilte et le do while
+// for , while et le do while
