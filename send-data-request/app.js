@@ -6,32 +6,43 @@
 
 const http = require("http")
 const saveTodo = require("./persistence")
+const { extractCookies } = require("./utils")
 const PORT = 3000
 const server = http.createServer((req, res) => {
     const { url, method } = req
-   
-     // add3 en utilisant url
-     // /add3/dentiste/5h
-    if(method=="POST" && url.startsWith("/add3/")){
+    req.addListener('data',()=>{
+        
+    })   
+     //add5 cookies
+    if (method == "POST" && url == ("/add5")) {
+        //req.headers.cookie  contains a string of cookies
+        // in the form of key=value;key=value
+        let cookies = extractCookies(req.headers.cookie)
+        let { task, duration } = cookies
+        return sendResponse(task, duration, res)
+    }
+    // add3 en utilisant url
+    // /add3/dentiste/5h
+    else if (method == "POST" && url.startsWith("/add3/")) {
         let splits = url.split("/")
         let task = splits[2]
         let duration = splits[3]
-        return sendResponse(task,duration,res)
+        return sendResponse(task, duration, res)
     }
-     // add2 en utilisant query param
+    // add2 en utilisant query param
     // /add2?task=cook&duration=3h
-    else if(method=="POST" && url.startsWith("/add2?")){
-        let params = url.split("?")[1] 
-        params = new URLSearchParams(params)   
+    else if (method == "POST" && url.startsWith("/add2?")) {
+        let params = url.split("?")[1]
+        params = new URLSearchParams(params)
         let task = params.get("task")
         let duration = params.get("duration")
-        return sendResponse(task,duration,res)
+        return sendResponse(task, duration, res)
     }
     // add1 en utilisant les headers
     else if (url == "/add1" && method == "POST") {
         console.log("/add1 context (headers)")
         let { task, duration } = req.headers
-        return sendResponse(task,duration,res)
+        return sendResponse(task, duration, res)
     }
     else {
         res.statusCode = 404
@@ -40,15 +51,15 @@ const server = http.createServer((req, res) => {
     }
 })
 
-const sendResponse = (task,duration,res)=>{
+const sendResponse = (task, duration, res) => {
     if (!task || !duration) {
         // status code 400
         res.statusCode = 400
         res.write("please fill all the required fields")
         return res.end()
     }
-    saveTodo({ task, duration }).then(()=>{
-        res.statusCode=201
+    saveTodo({ task, duration }).then(() => {
+        res.statusCode = 201
         res.write("insertion reussie")
         res.end()
     })
