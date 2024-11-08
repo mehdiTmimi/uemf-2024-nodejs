@@ -9,7 +9,19 @@ const saveTodo = require("./persistence")
 const PORT = 3000
 const server = http.createServer((req, res) => {
     const { url, method } = req
-    if (url == "/add1" && method == "POST") {
+    // add2 en utilisant query param
+    // /add2?task=cook&duration=3h
+    if(method=="POST" && url.startsWith("/add2?")){
+        let params = url.split("?")[1] 
+        params = new URLSearchParams(params)
+        
+        let task = params.get("task")
+        let duration = params.get("duration")
+        console.log(task,duration)
+        
+    }
+    // add1 en utilisant les headers
+    else if (url == "/add1" && method == "POST") {
         console.log("/add1 context (headers)")
         let { task, duration } = req.headers
         if (!task || !duration) {
