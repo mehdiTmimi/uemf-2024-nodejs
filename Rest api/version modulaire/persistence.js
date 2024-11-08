@@ -38,7 +38,6 @@ const removeUser = async (id) => {
     await fs.promises.writeFile(PathDb, JSON.stringify({ users }, null, 3))
     return user
 }
-removeUser(1).then(res=>console.log(res))
 module.exports = {
     search,search2,getAll,removeUser
 }

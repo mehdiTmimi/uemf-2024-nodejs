@@ -1,0 +1,16 @@
+{
+   "todos": [
+      {
+         "task": "do homeworks",
+         "duration": "2h"
+      },
+      {
+         "task": "go to the dentist",
+         "duration": "3h"
+      },
+      {
+         "task": "go for lunch",
+         "duration": "1h"
+      }
+   ]
+}
