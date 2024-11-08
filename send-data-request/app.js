@@ -9,9 +9,18 @@ const saveTodo = require("./persistence")
 const PORT = 3000
 const server = http.createServer((req, res) => {
     const { url, method } = req
-    // add2 en utilisant query param
+   
+     // add3 en utilisant url
+     // /add3/dentiste/5h
+    if(method=="POST" && url.startsWith("/add3/")){
+        let splits = url.split("/")
+        let task = splits[2]
+        let duration = splits[3]
+        return sendResponse(task,duration,res)
+    }
+     // add2 en utilisant query param
     // /add2?task=cook&duration=3h
-    if(method=="POST" && url.startsWith("/add2?")){
+    else if(method=="POST" && url.startsWith("/add2?")){
         let params = url.split("?")[1] 
         params = new URLSearchParams(params)   
         let task = params.get("task")
