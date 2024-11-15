@@ -11,7 +11,7 @@ const PORT = 3000
 const server = http.createServer((req, res) => {
     const { url, method } = req
 
-    if (method == "POST" && url.toLowerCase("/add6")) { // Add4 aDD4
+    if (method == "POST" && url.toLowerCase()=="/add6") { // Add4 aDD4
         let body = ""
         req.addListener('data', (chunk) => {
             body += chunk.toString()
@@ -50,10 +50,8 @@ const server = http.createServer((req, res) => {
 
 
         })
-
-
     }
-    else if (method == "POST" && url.toLowerCase("/add4")) { // Add4 aDD4
+    else if (method == "POST" && url.toLowerCase()=="/add4") { // Add4 aDD4
         let body = ""
         req.addListener('end', () => {
             try {
