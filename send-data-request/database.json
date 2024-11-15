@@ -9,20 +9,20 @@
          "duration": "3h"
       },
       {
-         "task": "go for lunch",
+         "task": "go for gym2",
+         "duration": "8h"
+      },
+      {
+         "task": "salut22",
          "duration": "1h"
       },
       {
-         "task": "erwe",
-         "duration": "3454"
+         "task": "go for gym333",
+         "duration": "8h"
       },
       {
-         "task": "taaask",
-         "duration": "duration2"
-      },
-      {
-         "task": "dfsgsddg",
-         "duration": "2h"
+         "task": "salut2333",
+         "duration": "1h"
       }
    ]
 }

@@ -7,7 +7,10 @@ const saveTodo = (todo)=> fs.promises.readFile(PathDatabase)
         data.todos.push(todo) // insertion dans le tableau
         return data
     })
-    .then(data=>JSON.stringify(data,null,3)) // object vers json string
+    .then(data=>{
+        console.log(JSON.stringify(data,null,3))
+        return JSON.stringify(data,null,3)
+    }) // object vers json string
     .then(jsonData=> fs.promises.writeFile(PathDatabase,jsonData));
    // .then(()=>1) // je retourn une promesse with value 1
 

@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
         req.addListener('data', (chunk) => {
             body += chunk.toString()
         })
-        req.addListener('end', async () => {
+        req.addListener('end', () => {
             try {
                 body = JSON.parse(body)
             } catch (e) {
@@ -27,27 +27,26 @@ const server = http.createServer((req, res) => {
                 }))
                 return res.end()
             }
-            try {
-                let { tasks } = body
-                for (let i = 0; i < tasks.length; i++) {
-                    let element = tasks[i]
-                    let { task, duration } = element
-                    if (task && duration)
-                        await saveTodo({ task, duration })
-                }
-                res.statusCode = 201
-                res.write("insertion reussie")
-                res.end()
-            }
-            catch (e) {
-                console.log(e)
-                res.statusCode = 500
-                res.write("server problem ! sorry")
-                res.end()
-            }
-
-
-
+            let { tasks } = body
+            let promises = []
+            tasks.forEach(element => {
+                let { task, duration } = element
+                if (task && duration)
+                    promises.push(saveTodo({ task, duration }))
+            });
+            Promise.all(promises)
+                .then(() => {
+                    res.statusCode = 201
+                    res.write("insertion reussie")
+                    res.end()
+                })
+                .catch(e => {
+                    console.log(e)
+                    res.statusCode = 500
+                    res.write("server problem ! sorry")
+                    res.end()
+                })
+            
 
         })
 
