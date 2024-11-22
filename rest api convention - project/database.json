@@ -1,0 +1,24 @@
+{
+  "list": [
+    {
+      "id": "WD343",
+      "name": "Mehdi",
+      "city": "fez"
+    },
+    {
+      "id": "WC3E3",
+      "name": "Sarah",
+      "city": "rabat"
+    },
+    {
+      "id": 5454,
+      "name": "ali",
+      "city": "fez"
+    },
+    {
+      "id": 5454,
+      "name": "ali",
+      "city": "fez"
+    }
+  ]
+}
