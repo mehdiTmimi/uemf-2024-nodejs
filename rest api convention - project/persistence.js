@@ -83,6 +83,7 @@ let main = async () => {
      console.log(tab)
      //console.log((await userPersistence.getAll()).list)
      */
+    await userPersistence.delete("WC3E55")
     console.log(userPersistence.get(5454))
 }
 main()
