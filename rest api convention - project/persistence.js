@@ -46,11 +46,18 @@ class UserPersistence {
         if (!user) {
             throw new Error("user does not exist to be deleted")
         }
-        this.users.list = this.users.list.filter(ele=>ele.id!=id)
+        this.users.list = this.users.list.filter(ele => ele.id != id)
         await this.sychroniser()
-        return user 
+        return user
     }
     update(id, user) {
+        let u = this.get(id)
+        if (!u) {
+            throw new Error("user does not exist to be deleted")
+        }
+        u.name = user.name || u.name
+        u.city = user.city || u.city
+        return this.sychroniser()
 
     }
     get(id) {
