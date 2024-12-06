@@ -31,30 +31,44 @@ class UserPersistence {
         }
     }
     async insert(user) {
+        if(this.get(user.id))
+        {
+            throw new Error("user already exist")
+        }
         this.users.list.push(user)
         await fs.promises.writeFile(this.dbPath,JSON.stringify(this.users,null,2))
         return user
     }
     delete(id) {
-
+        
     }
     update(id, user) {
 
     }
     get(id) {
-
+        // recuperer tout le tableau
+        // searcher dans le tableau
+        // soit retournir undefined soit object
+        return this.users.list.find(ele=>ele.id==id)
     }
     getAll() {
-
+        return this.users
     }
 }
 let main = async()=>{
     let userPersistence = new UserPersistence("./database.json")
     await userPersistence.load1()
-    userPersistence.insert({id:5454,name:"ali",city:"fez"})
+    userPersistence.insert({id:545774,name:"ali",city:"fez"})
     .then((u)=>{console.log("inserted with success",u)})
     .catch(e=>console.log(e))
     console.log("fin")
+    
+  /* let data = await userPersistence.getAll()
+   let tab = data.list
+   console.log(tab)
+   //console.log((await userPersistence.getAll()).list)
+   */
+  console.log(userPersistence.get(5454))
 }
 main()
 
