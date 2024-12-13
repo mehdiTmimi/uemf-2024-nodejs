@@ -86,4 +86,6 @@ let main = async () => {
     await userPersistence.delete("WC3E55")
     console.log(userPersistence.get(5454))
 }
-main()
+//main()
+
+module.exports = UserPersistence
