@@ -50,7 +50,7 @@ class UserPersistence {
         await this.sychroniser()
         return user
     }
-    update(id, user) {
+    async update(id, user) {
         let u = this.get(id)
         if (!u) {
             throw new Error("user does not exist to be deleted")
