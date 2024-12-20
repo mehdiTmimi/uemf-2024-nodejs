@@ -65,7 +65,6 @@ const app = http.createServer((req, res) => {
                     })
                     .catch(e => {
                         console.error(e)
-                       
                         if (e == 404) {
                             res.statusCode = 404
                             res.write(JSON.stringify({
@@ -78,19 +77,101 @@ const app = http.createServer((req, res) => {
                             sendHttp500Response(res)
                     })
             }
+            else {
+                res.statusCode = 400
+                res.write(JSON.stringify({
+                    msg: "please proive all the fields"
+                }))
+                res.end()
+            }
         })
         req.on("data", (chunk) => {
             body += chunk
         })
     }
     else if (method == "DELETE" && url.toLowerCase().startsWith("/users/")) {
-
+        let id = url.split("/")[2]
+        userPersistence.delete(id)
+            .then(() => {
+                res.write(JSON.stringify({
+                    msg: "ressource deleted with success",
+                    id
+                }))
+                res.end()
+            })
+            .catch(e => {
+                console.error(e)
+                if (e == 404) {
+                    res.statusCode = 404
+                    res.write(JSON.stringify({
+                        msg: "user not found",
+                        id
+                    }))
+                    res.end()
+                }
+                else
+                    sendHttp500Response(res)
+            })
     }
     else if (method == "POST" && url.toLowerCase() == "/users") {
-
+        let body = ""
+        req.on("data", chunk => {
+            body += chunk.toString()
+        })
+        req.on("end", () => {
+            try {
+                body = JSON.parse(body)
+            }
+            catch (e) {
+                console.error(e)
+                res.statusCode = 400
+                res.write(JSON.stringify({
+                    msg: "the body must be a json string"
+                }))
+                return res.end()
+            }
+            let { id, name, city } = body
+            // verification des donnees
+            if (id && name && city) {
+                let user = new User(id, name, city)
+                userPersistence.insert(user)
+                    .then(() => {
+                        res.statusCode = 201
+                        res.write(JSON.stringify({
+                            msg: "ressource inserted with success",
+                            user
+                        }))
+                        res.end()
+                    })
+                    .catch(e => {
+                        console.error(e)
+                        if (e == 400) {
+                            res.statusCode = 400
+                            res.write(JSON.stringify({
+                                msg: "user already exist",
+                                id
+                            }))
+                            res.end()
+                        }
+                        else
+                            sendHttp500Response(res)
+                    })
+            }
+            else {
+                res.statusCode = 400
+                res.write(JSON.stringify({
+                    msg: "please proive all the fields (id, name , city)"
+                }))
+                res.end()
+            }
+        })
     }
     else {
-        //404
+        res.statusCode = 404
+        res.write(JSON.stringify({
+            msg: "ressource does not exist"
+        }))
+        res.end()
     }
 })
 

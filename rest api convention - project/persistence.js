@@ -32,7 +32,7 @@ class UserPersistence {
     }
     async insert(user) {
         if (this.get(user.id)) {
-            throw new Error("user already exist")
+            throw 400
         }
         this.users.list.push(user)
         await this.sychroniser()
@@ -44,7 +44,7 @@ class UserPersistence {
     async delete(id) {
         let user = this.get(id)
         if (!user) {
-            throw new Error("user does not exist to be deleted")
+            throw 404
         }
         this.users.list = this.users.list.filter(ele => ele.id != id)
         await this.sychroniser()
