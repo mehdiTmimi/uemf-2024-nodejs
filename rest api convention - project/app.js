@@ -39,35 +39,44 @@ const app = http.createServer((req, res) => {
         let id = url.split("/")[2]
         let body = ""
         req.on("end", () => {
-            try{
+            try {
                 body = JSON.parse(body)
 
             }
-            catch(e){
+            catch (e) {
                 console.error(e)
                 res.statusCode = 400
                 res.write(JSON.stringify({
-                    msg:"the body must be a json string"
+                    msg: "the body must be a json string"
                 }))
                 return res.end()
             }
-            let {name,city} = body
+            let { name, city } = body
             // verification des donnees
-            if(id && name && city)
-            {
-                let user = new User(id,name,city)
-                userPersistence.update(id,user)
-                .then(()=>{
-                    res.write(JSON.stringify({
-                        msg:"ressource updated with success",
-                        user
-                    }))
-                    res.end()
-                })
-                .catch(e=>{
-                    console.error(e)
-                    sendHttp500Response(res)
-                })
+            if (id && name && city) {
+                let user = new User(id, name, city)
+                userPersistence.update(id, user)
+                    .then(() => {
+                        res.write(JSON.stringify({
+                            msg: "ressource updated with success",
+                            user
+                        }))
+                        res.end()
+                    })
+                    .catch(e => {
+                        console.error(e)
+                       
+                        if (e == 404) {
+                            res.statusCode = 404
+                            res.write(JSON.stringify({
+                                msg: "user not found",
+                                id
+                            }))
+                            res.end()
+                        }
+                        else
+                            sendHttp500Response(res)
+                    })
             }
         })
         req.on("data", (chunk) => {
@@ -95,10 +104,10 @@ userPersistence.load1().then(() => {
     .catch(e => {
         console.log(e)
     })
-const sendHttp500Response = (res=>{
-    res.statusCode=500
+const sendHttp500Response = (res => {
+    res.statusCode = 500
     res.write(JSON.stringify({
-        msg:"problem in the server"
+        msg: "problem in the server"
     }))
     res.end()
 })

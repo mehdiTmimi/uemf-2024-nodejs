@@ -53,7 +53,7 @@ class UserPersistence {
     async update(id, user) {
         let u = this.get(id)
         if (!u) {
-            throw new Error("user does not exist to be deleted")
+            throw 404
         }
         u.name = user.name || u.name
         u.city = user.city || u.city
